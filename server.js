@@ -21,6 +21,11 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+// Serve portfolio
+app.get('/portfolio', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'portfolio.html'));
+});
+
 // Fetch skin data from CSFloat API
 app.get('/scrape-skin', async (req, res) => {
     const listingID = req.query.id;

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antoine Vacossin — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="portfolio.css">
+</head>
+<body>
+
+  <!-- ===== MODE TOGGLE ===== -->
+  <div class="mode-switcher" id="modeSwitcher">
+    <button class="mode-pill active" id="btnDev" onclick="switchMode('dev')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+      Dev Mode
+    </button>
+    <button class="mode-pill" id="btnNormal" onclick="switchMode('normal')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+      Normal
+    </button>
+  </div>
+
+  <!-- ===== DEV MODE: SQL TERMINAL ===== -->
+  <div id="devMode" class="page-mode dev-page">
+    <div class="terminal-container">
+      <div class="terminal-chrome">
+        <div class="chrome-dots">
+          <span class="dot dot-red"></span>
+          <span class="dot dot-yellow"></span>
+          <span class="dot dot-green"></span>
+        </div>
+        <span class="chrome-title">portfolio.sql — SQL Terminal</span>
+        <div class="chrome-right"></div>
+      </div>
+
+      <div class="terminal-body" id="terminalBody">
+        <div id="terminalOutput"></div>
+        <div class="terminal-input-row" id="inputRow">
+          <span class="prompt-text">portfolio@sql:~$&nbsp;</span>
+          <input
+            type="text"
+            id="sqlInput"
+            class="sql-input"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="Type a SQL query..."
+            autofocus
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="terminal-hints">
+      <span class="hint-label">Quick queries →</span>
+      <button class="hint-chip" onclick="runHint('SHOW TABLES;')">SHOW TABLES</button>
+      <button class="hint-chip" onclick="runHint('SELECT * FROM profile;')">profile</button>
+      <button class="hint-chip" onclick="runHint('SELECT * FROM experience;')">experience</button>
+      <button class="hint-chip" onclick="runHint('SELECT * FROM skills ORDER BY level DESC;')">skills</button>
+      <button class="hint-chip" onclick="runHint('SELECT * FROM languages;')">languages</button>
+      <button class="hint-chip" onclick="runHint('HELP;')">HELP</button>
+    </div>
+  </div>
+
+  <!-- ===== NORMAL MODE: PORTFOLIO ===== -->
+  <div id="normalMode" class="page-mode normal-page hidden">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <div class="hero-badge">Available for opportunities</div>
+        <h1 class="hero-name">
+          <span class="name-first">Antoine</span>
+          <span class="name-last">Vacossin</span>
+        </h1>
+        <div class="hero-title-row">
+          <span class="hero-title">Deputy Team Leader</span>
+          <span class="hero-at">@</span>
+          <span class="hero-company">OMEGA365 France</span>
+        </div>
+        <p class="hero-sub typed-text" id="typedText"></p>
+        <div class="hero-actions">
+          <a href="mailto:vacossin.antoine@gmail.com" class="btn-primary">Contact Me</a>
+          <a href="https://linkedin.com/in/antvacossin" target="_blank" rel="noopener" class="btn-ghost">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            LinkedIn
+          </a>
+          <a href="https://github.com/pasteqk" target="_blank" rel="noopener" class="btn-ghost">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+            GitHub
+          </a>
+          <button class="btn-ghost" onclick="switchMode('dev')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            Dev Mode
+          </button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="code-card">
+          <div class="code-card-header">
+            <span class="code-lang">SQL</span>
+          </div>
+          <pre class="code-snippet"><span class="kw">SELECT</span> name, title, company
+<span class="kw">FROM</span>   profile
+<span class="kw">WHERE</span>  passion <span class="op">=</span> <span class="str">'engineering'</span>
+  <span class="kw">AND</span>  experience <span class="op">>=</span> <span class="num">3</span>
+<span class="kw">ORDER BY</span> impact <span class="kw">DESC</span>;
+
+<span class="comment">-- 1 row in set (0.001 sec)</span></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats-bar">
+      <div class="stat-item">
+        <span class="stat-num" data-target="3">0</span><span class="stat-unit">+</span>
+        <span class="stat-label">Years Experience</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num" data-target="7000">0</span><span class="stat-unit">+</span>
+        <span class="stat-label">Monthly Users</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num" data-target="3">0</span>
+        <span class="stat-label">Languages Spoken</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num" data-target="3">0</span>
+        <span class="stat-label">Tech Stacks</span>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+      <div class="section-inner">
+        <div class="section-label">// about</div>
+        <h2 class="section-title">About Me</h2>
+        <div class="about-grid">
+          <div class="about-text">
+            <p>
+              Computer Engineering graduate from <strong>CYTech</strong>, I joined <strong>OMEGA365 France</strong> as a
+              Junior Software Engineer in late 2023 and quickly grew into a <strong>Deputy Team Leader</strong> role.
+            </p>
+            <p>
+              I manage a client-facing EDMS platform used by <strong>7,000+ users monthly</strong>, handling the full
+              ticket lifecycle — from triaging bugs and support requests to evaluating and quoting feature work.
+              My technical depth is strongest in <strong>T-SQL optimization</strong>, database architecture, and back-end C# services.
+            </p>
+            <p>
+              Before industry, I did research on <strong>Blockchain & Green Hydrogen Technology</strong> as an intern at
+              HUTECH University in Vietnam — a pivot that sharpened both my research skills and adaptability.
+            </p>
+          </div>
+          <div class="about-tags">
+            <div class="tag-group">
+              <span class="tag-group-label">Focus Areas</span>
+              <span class="tag">EDMS</span>
+              <span class="tag">SQL Optimization</span>
+              <span class="tag">DB Architecture</span>
+              <span class="tag">Team Leadership</span>
+              <span class="tag">Client Management</span>
+            </div>
+            <div class="tag-group">
+              <span class="tag-group-label">Interests</span>
+              <span class="tag accent">Blockchain</span>
+              <span class="tag accent">System Design</span>
+              <span class="tag accent">Research</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="section section-alt" id="experience">
+      <div class="section-inner">
+        <div class="section-label">// experience</div>
+        <h2 class="section-title">Work History</h2>
+        <div class="timeline">
+
+          <div class="timeline-item">
+            <div class="timeline-marker current"></div>
+            <div class="timeline-card">
+              <div class="exp-header">
+                <div>
+                  <h3 class="exp-role">Deputy Team Leader</h3>
+                  <span class="exp-company">OMEGA365 France</span>
+                </div>
+                <div class="exp-meta">
+                  <span class="exp-badge current-badge">Current</span>
+                  <span class="exp-period">2024 — Present</span>
+                  <span class="exp-type">Full-time</span>
+                </div>
+              </div>
+              <ul class="exp-bullets">
+                <li>Managing client ticket lifecycle — bug reports, support, feature evaluation & quoting</li>
+                <li>Leading team delivery on a platform serving <strong>7,000+ monthly users</strong></li>
+                <li>Deep T-SQL query optimization and database architecture design</li>
+                <li>Bridging technical and client-facing communication</li>
+              </ul>
+              <div class="exp-tech">
+                <span class="tech-pill">T-SQL</span>
+                <span class="tech-pill">C#</span>
+                <span class="tech-pill">JavaScript</span>
+                <span class="tech-pill">EDMS</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-card">
+              <div class="exp-header">
+                <div>
+                  <h3 class="exp-role">Junior Software Engineer</h3>
+                  <span class="exp-company">OMEGA365 France</span>
+                </div>
+                <div class="exp-meta">
+                  <span class="exp-period">Sep 2023 — 2024</span>
+                  <span class="exp-type">Full-time</span>
+                </div>
+              </div>
+              <ul class="exp-bullets">
+                <li>Onboarded into EDMS software development at scale</li>
+                <li>Learned advanced SQL optimization techniques on production databases</li>
+                <li>Contributed to DB architecture improvements that reduced query times</li>
+              </ul>
+              <div class="exp-tech">
+                <span class="tech-pill">T-SQL</span>
+                <span class="tech-pill">C#</span>
+                <span class="tech-pill">SQL Server</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-marker research"></div>
+            <div class="timeline-card">
+              <div class="exp-header">
+                <div>
+                  <h3 class="exp-role">Research Intern</h3>
+                  <span class="exp-company">HUTECH University — Ho Chi Minh City, Vietnam</span>
+                </div>
+                <div class="exp-meta">
+                  <span class="exp-period">Summer 2023</span>
+                  <span class="exp-type">Internship</span>
+                </div>
+              </div>
+              <ul class="exp-bullets">
+                <li>Conducted academic research on Blockchain applications</li>
+                <li>Contributed to Green Hydrogen Technology (GHT) research project</li>
+                <li>International research environment — adapted fully in English</li>
+              </ul>
+              <div class="exp-tech">
+                <span class="tech-pill">Blockchain</span>
+                <span class="tech-pill">Research</span>
+                <span class="tech-pill">GHT</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="section" id="skills">
+      <div class="section-inner">
+        <div class="section-label">// skills</div>
+        <h2 class="section-title">Technical Skills</h2>
+        <div class="skills-grid">
+
+          <div class="skill-category">
+            <h3 class="skill-cat-title">
+              <span class="cat-icon">🗄️</span> Database
+            </h3>
+            <div class="skill-list">
+              <div class="skill-item"><span class="skill-name">T-SQL</span><span class="skill-bar"><span class="skill-fill" style="--w:95%"></span></span><span class="skill-lvl expert">Expert</span></div>
+              <div class="skill-item"><span class="skill-name">SQL Optimization</span><span class="skill-bar"><span class="skill-fill" style="--w:92%"></span></span><span class="skill-lvl expert">Expert</span></div>
+              <div class="skill-item"><span class="skill-name">DB Architecture</span><span class="skill-bar"><span class="skill-fill" style="--w:85%"></span></span><span class="skill-lvl advanced">Advanced</span></div>
+              <div class="skill-item"><span class="skill-name">SQL Server</span><span class="skill-bar"><span class="skill-fill" style="--w:88%"></span></span><span class="skill-lvl expert">Expert</span></div>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h3 class="skill-cat-title">
+              <span class="cat-icon">💻</span> Development
+            </h3>
+            <div class="skill-list">
+              <div class="skill-item"><span class="skill-name">JavaScript</span><span class="skill-bar"><span class="skill-fill" style="--w:82%"></span></span><span class="skill-lvl advanced">Advanced</span></div>
+              <div class="skill-item"><span class="skill-name">C#</span><span class="skill-bar"><span class="skill-fill" style="--w:80%"></span></span><span class="skill-lvl advanced">Advanced</span></div>
+              <div class="skill-item"><span class="skill-name">HTML / CSS</span><span class="skill-bar"><span class="skill-fill" style="--w:75%"></span></span><span class="skill-lvl advanced">Advanced</span></div>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h3 class="skill-cat-title">
+              <span class="cat-icon">🧠</span> Domain
+            </h3>
+            <div class="skill-list">
+              <div class="skill-item"><span class="skill-name">EDMS</span><span class="skill-bar"><span class="skill-fill" style="--w:93%"></span></span><span class="skill-lvl expert">Expert</span></div>
+              <div class="skill-item"><span class="skill-name">Team Leadership</span><span class="skill-bar"><span class="skill-fill" style="--w:80%"></span></span><span class="skill-lvl advanced">Advanced</span></div>
+              <div class="skill-item"><span class="skill-name">Ticket Management</span><span class="skill-bar"><span class="skill-fill" style="--w:90%"></span></span><span class="skill-lvl expert">Expert</span></div>
+              <div class="skill-item"><span class="skill-name">Blockchain</span><span class="skill-bar"><span class="skill-fill" style="--w:55%"></span></span><span class="skill-lvl intermediate">Intermediate</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION + LANGUAGES -->
+    <section class="section section-alt" id="education">
+      <div class="section-inner">
+        <div class="two-col">
+
+          <div>
+            <div class="section-label">// education</div>
+            <h2 class="section-title">Education</h2>
+            <div class="edu-card">
+              <div class="edu-icon">🎓</div>
+              <div class="edu-info">
+                <h3>Engineering Degree — Computer Science</h3>
+                <span class="edu-school">CYTech</span>
+                <span class="edu-years">2019 — 2024</span>
+                <p class="edu-note">Specialized in software engineering, distributed systems, and applied computer science.</p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="section-label">// languages</div>
+            <h2 class="section-title">Languages</h2>
+            <div class="lang-list">
+              <div class="lang-item">
+                <span class="lang-flag">🇫🇷</span>
+                <div class="lang-info">
+                  <span class="lang-name">French</span>
+                  <span class="lang-level native">Native</span>
+                </div>
+                <div class="lang-dots">
+                  <span class="dot-filled"></span><span class="dot-filled"></span><span class="dot-filled"></span><span class="dot-filled"></span><span class="dot-filled"></span>
+                </div>
+              </div>
+              <div class="lang-item">
+                <span class="lang-flag">🇬🇧</span>
+                <div class="lang-info">
+                  <span class="lang-name">English</span>
+                  <span class="lang-level fluent">Fluent</span>
+                </div>
+                <div class="lang-dots">
+                  <span class="dot-filled"></span><span class="dot-filled"></span><span class="dot-filled"></span><span class="dot-filled"></span><span class="dot-empty"></span>
+                </div>
+              </div>
+              <div class="lang-item">
+                <span class="lang-flag">🇨🇳</span>
+                <div class="lang-info">
+                  <span class="lang-name">Chinese</span>
+                  <span class="lang-level intermediate">Intermediate+</span>
+                </div>
+                <div class="lang-dots">
+                  <span class="dot-filled"></span><span class="dot-filled"></span><span class="dot-filled"></span><span class="dot-empty"></span><span class="dot-empty"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <p>Built with ❤️ and a SQL query. <button class="footer-link" onclick="switchMode('dev')">Try the SQL terminal →</button></p>
+    </footer>
+
+  </div><!-- end normal mode -->
+
+  <script src="portfolio.js"></script>
+</body>
+</html>
