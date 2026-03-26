@@ -718,13 +718,110 @@ body {
 .footer-link:hover { text-decoration: underline; }
 
 /* ===== RESPONSIVE ===== */
+
+/* Tablet */
+@media (max-width: 900px) {
+  .about-grid { grid-template-columns: 1fr; gap: 36px; }
+  .two-col    { grid-template-columns: 1fr; gap: 48px; }
+  .stat-item  { padding: 0 32px; }
+}
+
+/* Large phone / small tablet */
 @media (max-width: 768px) {
-  .hero { flex-direction: column; padding: 100px 5vw 60px; gap: 40px; }
-  .hero-visual { display: none; }
-  .about-grid { grid-template-columns: 1fr; }
-  .two-col { grid-template-columns: 1fr; }
-  .stats-bar { flex-wrap: wrap; gap: 24px; }
-  .stat-item { padding: 0 20px; }
-  .stat-divider { display: none; }
+  /* Mode switcher */
   .mode-switcher { top: 10px; right: 10px; }
+  .mode-pill { padding: 6px 12px; font-size: 12px; gap: 5px; }
+
+  /* Terminal */
+  .dev-page { padding: 70px 12px 24px; }
+  .terminal-body {
+    min-height: 320px;
+    max-height: 55vh;
+    padding: 14px;
+    font-size: 12px;
+    overflow-x: auto;         /* horizontal scroll for wide tables */
+  }
+  .sql-input { font-size: 16px; } /* prevent iOS zoom on focus */
+  .welcome-banner { font-size: 10.5px; }
+  .sql-table { font-size: 11px; }
+  .hint-chip { padding: 7px 14px; font-size: 12px; } /* bigger touch target */
+
+  /* Hero */
+  .hero {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 80px 6vw 52px;
+    gap: 32px;
+    min-height: auto;
+  }
+  .hero-visual { display: none; }
+  .hero-name { letter-spacing: -1px; }
+  .hero-title-row { font-size: 15px; flex-wrap: wrap; gap: 6px; }
+  .hero-actions { flex-direction: column; }
+  .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
+
+  /* Stats */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    padding: 0;
+  }
+  .stat-item {
+    padding: 28px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .stat-item:nth-child(odd)  { border-right: 1px solid var(--border); }
+  .stat-divider { display: none; }
+  .stat-num  { font-size: 32px; }
+  .stat-unit { font-size: 20px; }
+
+  /* Sections */
+  .section { padding: 52px 6vw; }
+  .section-title { font-size: 26px; margin-bottom: 28px; }
+
+  /* Timeline */
+  .timeline-item { gap: 18px; }
+  .timeline-card { padding: 16px; }
+  .exp-header { flex-direction: column; gap: 8px; }
+  .exp-meta { align-items: flex-start; flex-direction: row; flex-wrap: wrap; gap: 6px; }
+
+  /* Skills */
+  .skills-grid { grid-template-columns: 1fr; }
+  .skill-name  { min-width: 120px; }
+  .skill-lvl   { min-width: 70px; }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .mode-pill svg { display: none; }        /* icon-only saves space */
+  .mode-pill { padding: 6px 10px; }
+
+  .terminal-body { font-size: 11px; padding: 10px; }
+  .prompt-text { font-size: 11px; }
+  .sql-input   { font-size: 16px; }        /* must stay 16px for iOS */
+  .welcome-banner { font-size: 9.5px; }
+  .chrome-title { font-size: 10px; }
+
+  .hero { padding: 72px 5vw 44px; }
+  .hero-badge { font-size: 11px; }
+  .hero-sub { font-size: 14px; }
+
+  .stat-num { font-size: 28px; }
+  .stat-label { font-size: 12px; }
+
+  .section { padding: 44px 5vw; }
+  .section-title { font-size: 22px; }
+
+  .timeline::before { left: 12px; }
+  .timeline-marker { width: 26px; height: 26px; }
+  .timeline-item { gap: 14px; }
+
+  .lang-item { padding: 12px 14px; gap: 10px; }
+  .lang-dots { display: none; }            /* too cramped on tiny screens */
+
+  .edu-card { flex-direction: column; gap: 12px; }
+  .edu-icon { font-size: 24px; }
+
+  .footer { padding: 28px 5vw; font-size: 13px; }
 }
